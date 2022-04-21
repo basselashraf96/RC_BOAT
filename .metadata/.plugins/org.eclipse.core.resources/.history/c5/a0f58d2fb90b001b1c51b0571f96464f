@@ -1,0 +1,24 @@
+/*
+ * main.c
+ *
+ *  Created on: Oct 11, 2020
+ *      Author: Basel Ashraf
+ */
+
+
+#include "uart.h"
+#define M2_READY 0x10
+
+int main(void)
+{
+	UART_init();
+	DDRB |= (1<<PB1);
+	uint8 Byte_Recieved = 0;
+	UART_sendByte(M2_READY);
+	while(1)
+	{
+
+
+	}
+	return 0;
+}

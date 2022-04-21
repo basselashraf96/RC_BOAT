@@ -1,0 +1,25 @@
+/*
+ * main.c
+ *
+ *  Created on: Oct 11, 2020
+ *      Author: Basel Ashraf
+ */
+
+
+#include "uart.h"
+#include "adc.h"
+#define M2_READY 0x10
+int main(void)
+{
+	ADC_init();
+	UART_init();
+	float x = 0;
+	float y = 0;
+	while(1)
+	{
+		x = ADC_readChannel(0);
+		UART_sendByte(x);
+
+	}
+	return 0;
+}

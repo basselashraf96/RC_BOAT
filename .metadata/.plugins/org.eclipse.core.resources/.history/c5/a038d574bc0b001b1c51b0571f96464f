@@ -1,0 +1,50 @@
+/*
+ * main.c
+ *
+ *  Created on: Oct 11, 2020
+ *      Author: Basel Ashraf
+ */
+
+
+#include "uart.h"
+
+void Timer1_PWM(unsigned short dutyCycle)
+{
+	TCNT1 = 0;
+	ICR1 = 39999;
+	OCR1A = dutyCycle;
+
+	TCCR1A = (1<<COM1A1) | (1<<WGM11);
+	TCCR1B = (1<<WGM12)	 | (1<<WGM13) | (1<<CS11);
+
+}
+
+
+int main(void)
+{
+	DDRB |= (1<<PB1);
+	DDRD |= (1<<PD2) | (1<<PD3);
+	UART_init();
+	float x = 0;
+	float y = 0;
+	float servoX = 0;
+	float servoY = 0;
+	while(1)
+	{
+
+		if(UART_recieveByte() == 1)
+		{
+			Timer1_PWM(2800);
+			_delay_ms(50);
+		}
+		else
+		{
+			Timer1_PWM(4800);
+			_delay_ms(50);
+		}
+		Timer1_PWM(2800);
+		_delay_ms(50);
+
+	}
+	return 0;
+}

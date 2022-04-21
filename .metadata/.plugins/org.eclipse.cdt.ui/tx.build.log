@@ -1,0 +1,42 @@
+18:27:58 **** Incremental Build of configuration Release for project tx ****
+make all 
+Building file: ../CONTROL.c
+Invoking: AVR Compiler
+avr-gcc -Wall -Os -fpack-struct -fshort-enums -ffunction-sections -fdata-sections -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega328p -DF_CPU=16000000UL -MMD -MP -MF"CONTROL.d" -MT"CONTROL.o" -c -o "CONTROL.o" "../CONTROL.c"
+Finished building: ../CONTROL.c
+ 
+Building target: tx.elf
+Invoking: AVR C Linker
+avr-gcc -Wl,-Map,tx.map -mmcu=atmega328p -o "tx.elf"  ./CONTROL.o ./adc.o ./uart.o   
+Finished building target: tx.elf
+ 
+Invoking: AVR Create Extended Listing
+avr-objdump -h -S tx.elf  >"tx.lss"
+Finished building: tx.lss
+ 
+Create Flash image (ihex format)
+avr-objcopy -R .eeprom -R .fuse -R .lock -R .signature -O ihex tx.elf  "tx.hex"
+Finished building: tx.hex
+ 
+Create eeprom image (ihex format)
+avr-objcopy -j .eeprom --no-change-warnings --change-section-lma .eeprom=0 -O ihex tx.elf  "tx.eep"
+Finished building: tx.eep
+ 
+Invoking: Print Size
+avr-size --format=avr --mcu=atmega328p tx.elf
+AVR Memory Usage
+----------------
+Device: atmega328p
+
+Program:     612 bytes (1.9% Full)
+(.text + .data + .bootloader)
+
+Data:          0 bytes (0.0% Full)
+(.data + .bss + .noinit)
+
+
+Finished building: sizedummy
+ 
+
+18:27:59 Build Finished. 0 errors, 0 warnings. (took 769ms)
+

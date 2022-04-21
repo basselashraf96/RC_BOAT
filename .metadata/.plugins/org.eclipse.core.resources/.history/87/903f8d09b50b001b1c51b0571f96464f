@@ -1,0 +1,31 @@
+/*
+ * main.c
+ *
+ *  Created on: Oct 11, 2020
+ *      Author: Basel Ashraf
+ */
+
+
+#include "uart.h"
+
+int main(void)
+{
+	UART_init();
+	PORTB |= (1<<PB5);
+	uint8 Byte_Recieved = 0;
+	while(1)
+	{
+		Byte_Recieved = UART_recieveByte();
+		if(Byte_Recieved ==1 )
+		{
+			PORTD ^= (1<<PB5);
+			_delay_ms(500);
+		}
+		else
+		{
+			PORTD &= ~(1<<PB5);
+		}
+
+	}
+	return 0;
+}

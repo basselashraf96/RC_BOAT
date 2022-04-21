@@ -1,0 +1,51 @@
+/*
+ * main.c
+ *
+ *  Created on: Oct 11, 2020
+ *      Author: Basel Ashraf
+ */
+
+
+#include "uart.h"
+#include "adc.h"
+#define M1_READY 0x10
+int main(void)
+{
+	ADC_init();
+	DDRB |= (1<<PB1);
+	DDRD |= (1<<PD2) | (1<<PD3);
+	uint16 x = 0;
+	uint16 y = 0;
+	UART_init();
+	while(1)
+	{
+
+		x = ADC_readChannel(0);
+		if(x<480 && x>=0 )
+		{
+
+			UART_sendByte(1);
+			PORTD |= (1<<PD2);
+			PORTD &= ~(1<<PD3);
+
+		}
+		else if(x>550 && x<1024)
+		{
+			UART_sendByte(2);
+			PORTD |= (1<<PD3);
+			PORTD &= ~(1<<PD2);
+
+		}
+		else if(x>480 && x<550)
+		{
+
+			UART_sendByte(3);
+		}
+		_delay_ms(100);
+
+
+
+
+
+	}
+}

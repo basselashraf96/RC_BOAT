@@ -1,0 +1,14 @@
+/*
+ * main.c
+ *
+ *  Created on: Oct 11, 2020
+ *      Author: Basel Ashraf
+ */
+
+
+#include "uart.h"
+
+int main(void)
+{
+	return 0;
+}
